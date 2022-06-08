@@ -36,7 +36,7 @@ class UserService {
       .map((_user) => {
         const [lastMessage] = [
           (groupedMessages[`${_user.id}:${user.id}`] || [])[0],
-          (groupedMessages[`${_user.id}:${user.id}`] || [])[0],
+          (groupedMessages[`${user.id}:${_user.id}`] || [])[0],
         ]
           .filter((m) => m)
           .sort((a, b) => (moment(a.createdAt).isAfter(b.createdAt) ? -1 : 1));
@@ -106,7 +106,7 @@ class UserService {
 }
 
 new CronJob(
-  "0 */5 * * * *",
+  "0 */1 * * * *",
   UserService.removeInactiveUsers,
   null,
   true,
